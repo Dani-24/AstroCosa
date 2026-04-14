@@ -1,4 +1,5 @@
 import strawberry
+from typing import List, Optional
 
 @strawberry.type
 class Inventory:
@@ -12,4 +13,14 @@ class Player:
     nickname: str
     lvl: int
     banned: bool
-    inventory: Inventory
+    inventory: Optional[List[Inventory]] = None
+
+@strawberry.input
+class PlayerInput:
+    nickname: str
+
+@strawberry.input
+class InventoryInput:
+    user_id: str
+    item_name: str
+    rarity: str

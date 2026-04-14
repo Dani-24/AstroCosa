@@ -8,7 +8,7 @@ class PlayersQuery:
 
     @strawberry.field
     def player_profile(self, id: str) -> Optional[Player]:
-        doc = db.collection("Players").document(id).get()
+        doc = db.collection("Player").document(id).get()
 
         if doc.exists: 
             data = doc.to_dict()

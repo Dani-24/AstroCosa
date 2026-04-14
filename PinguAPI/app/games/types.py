@@ -28,3 +28,10 @@ class Game:
 @strawberry.input
 class GameInput:
     map: str
+
+@strawberry.input
+class ScoreInput:
+    game_id: str
+    player_id: str
+    points: str
+    kills: str

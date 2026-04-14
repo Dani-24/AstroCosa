@@ -1,17 +1,31 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 import strawberry
-from strawberry.fastapi import GraphQLRouter
-from schema import Query, Mutation
 import uvicorn 
+from strawberry.fastapi import GraphQLRouter, BaseContext
+from schema import Query, Mutation
+from auth import get_actual_user
+from typing import Optional, Dict, Any
 
 app = FastAPI(title="PinguAPI")
 
 schema = strawberry.Schema(query=Query, mutation=Mutation)
 
+# class ContextGraphQL(BaseContext):
+#     def __init__(self, user: Optional[Dict[str, Any]]):
+#         self.user = user
+
+# def generate_context(user: Optional[Dict[str, Any]] = Depends(get_actual_user)):
+#     return ContextGraphQL(user=user)
+
+async def get_context(user = Depends(get_actual_user)):
+    return {
+        "user": user
+    }
+
 graphql_app = GraphQLRouter(
     schema,
-    # context_getter=get_context
+    context_getter=get_context
 )
 
 origins = [
