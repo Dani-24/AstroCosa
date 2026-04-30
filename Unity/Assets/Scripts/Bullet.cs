@@ -10,8 +10,8 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        transform.position += speed * Time.deltaTime * new Vector3(0f, transform.position.y, 0f);
-    
+        transform.Translate(new Vector3(0f, speed * Time.deltaTime, 0f));
+
         if (cont < lifeTime)
         {
             cont += Time.deltaTime;

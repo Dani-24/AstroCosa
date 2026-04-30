@@ -39,19 +39,16 @@ public class PlayerController : MonoBehaviour
         transform.position = pos;
 
         // Shooting
-        if (shootingCont >= shootingCooldown)
+        if (shootingCont >= shootingCooldown && shootAction.IsPressed())
         {
             shootingCont = 0;
 
-            if (shootAction.IsPressed())
-            {
-                GameObject newBullet = Instantiate(bulletPrefab, transform);
-                newBullet.GetComponent<Bullet>().speed *= -1;
-                // TODO: Change layer of the bullet
-            }
+            GameObject newBullet = Instantiate(bulletPrefab, transform);
+            //newBullet.GetComponent<Bullet>().speed *= -1;
+            newBullet.transform.parent = null;
+            // TODO: Change layer of the bullet
         }
-        else
-        {
+        else {
             shootingCont += Time.deltaTime;
         }
     }
