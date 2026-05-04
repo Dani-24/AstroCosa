@@ -4,22 +4,68 @@ using UnityEngine;
 
 public class GameManagerScript : MonoBehaviour
 {
-    [SerializeField] int stage = 0;
-    [SerializeField] int score = 0;
-    [SerializeField] float difficulty = 10;
-    [SerializeField] List<GameObject> enemySquads = new();
+    public int stage = 0;
+    public int score = 0;
+    public float difficulty = 10;
+    [SerializeField] Transform[] spawnPoints;
+    [SerializeField] List<GameObject> enemySquadsAlive = new();
+    [SerializeField] FormationScriptableObject[] formationsAvailable;
+    public GameObject enemyPrefab;
+
+    #region Instance
+
+    private static GameManagerScript _instance;
+    public static GameManagerScript Instance { get { return _instance; } }
+
+    private void Awake()
+    {
+        if (_instance != null && Instance != null)
+            Destroy(this.gameObject);
+        else
+            _instance = this;
+
+        DontDestroyOnLoad(this.gameObject);
+    }
+
+    #endregion
 
     void Start()
     {
-        
+
     }
 
     void Update()
     {
-        if(enemySquads.Count <= 0)
+        if (enemySquadsAlive.Count <= 0)
         {
-            // TODO: If there is no enemy squad,
-            // spawns a random enemy squad from the available ones in this stage
+            var emptyGO = new GameObject();
+            emptyGO.transform.position = spawnPoints[Random.Range(0, spawnPoints.Length)].position;
+            emptyGO.AddComponent<SquadController>();
+            emptyGO.GetComponent<SquadController>().squadFormation = GetNextFormation();
+
+            enemySquadsAlive.Add(emptyGO);
         }
+    }
+
+    FormationScriptableObject GetNextFormation()
+    {
+        bool formationSelected = false;
+        int selectedFormation;
+        do
+        {
+            selectedFormation = Random.Range(0, formationsAvailable.Length);
+            if (formationsAvailable[selectedFormation].minStage <= stage
+                && formationsAvailable[selectedFormation].maxStage >= stage)
+            {
+                formationSelected = true;
+            }
+        } while (!formationSelected);
+
+        return formationsAvailable[selectedFormation];
+    }
+
+    public void RemoveSquad(GameObject squad)
+    {
+        enemySquadsAlive.Remove(squad);
     }
 }
