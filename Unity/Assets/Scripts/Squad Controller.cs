@@ -12,6 +12,8 @@ public class SquadController : MonoBehaviour
     float frequency = 0.1f;
     float amplitude = 2f;
 
+    public bool wandering = false;
+
     void Start()
     {
         // Create enemies
@@ -40,6 +42,8 @@ public class SquadController : MonoBehaviour
         })
         .SetLoops(-1, LoopType.Restart)
         .SetEase(Ease.Linear);
+
+        wandering = true;
     }
 
     void Update()

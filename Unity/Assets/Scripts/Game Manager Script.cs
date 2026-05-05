@@ -12,6 +12,8 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField] FormationScriptableObject[] formationsAvailable;
     public GameObject enemyPrefab;
 
+    public GameObject playerInstance;
+
     #region Instance
 
     private static GameManagerScript _instance;

@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
         shootAction = InputSystem.actions.FindAction("Attack");
 
         shootingCont = shootingCooldown;
+
+        GameManagerScript.Instance.playerInstance = gameObject;
     }
 
     void Update()
