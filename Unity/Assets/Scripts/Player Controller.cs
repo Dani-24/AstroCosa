@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,12 +19,14 @@ public class PlayerController : MonoBehaviour
         shootAction = InputSystem.actions.FindAction("Attack");
 
         shootingCont = shootingCooldown;
+
+        GameManagerScript.Instance.playerInstance = gameObject;
     }
 
     void Update()
     {
         // Movement
-        Vector2 moveValue = moveAction.ReadValue<Vector2>(); 
+        Vector2 moveValue = moveAction.ReadValue<Vector2>();
         Vector3 pos = transform.position;
         pos += speed * Time.deltaTime * new Vector3(moveValue.x, 0f, 0f);
 
@@ -35,7 +38,7 @@ public class PlayerController : MonoBehaviour
 
         float halfWidth = GetComponent<SpriteRenderer>().bounds.extents.x;
         pos.x = Mathf.Clamp(pos.x, minX + halfWidth, maxX - halfWidth);
-        
+
         transform.position = pos;
 
         // Shooting
@@ -44,11 +47,10 @@ public class PlayerController : MonoBehaviour
             shootingCont = 0;
 
             GameObject newBullet = Instantiate(bulletPrefab, transform);
-            //newBullet.GetComponent<Bullet>().speed *= -1;
             newBullet.transform.parent = null;
-            // TODO: Change layer of the bullet
         }
-        else {
+        else
+        {
             shootingCont += Time.deltaTime;
         }
     }
@@ -56,5 +58,13 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // TODO: Receive DMG
+        Debug.Log($"Player Collision DMG from {collision.gameObject.name}");
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log($"Player received BULLET DMG from {collision.gameObject.name}");
+
+        Destroy(collision.gameObject);
     }
 }
