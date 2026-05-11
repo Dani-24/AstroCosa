@@ -17,3 +17,6 @@ MonoBehaviour:
   EXP: 1
   sprite: {fileID: 3625043607559282579, guid: c04fc3bec90d69e48ad006a42dd2dcf4, type: 3}
   type: 0
+  moveDuration: 1.5
+  specialMoveSpeed: 0
+  specialMoveAmpl: 0

@@ -7,6 +7,10 @@ public class FormationScriptableObject : ScriptableObject
 
     public int minStage = 0;
     public int maxStage = 3;
+
+    public float spawnDuration = 5f;
+    public float wanderFreq = 0.1f;
+    public float wanderAmpl = 2f;
 }
 
 [System.Serializable]

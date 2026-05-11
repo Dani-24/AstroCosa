@@ -54,20 +54,8 @@ public class EnemyController : MonoBehaviour
     {
         if (shootingCont >= shootingCooldown)
         {
-
-            // TODO: Special Attack instead of shooting
-
-            // Uses special moves according to the enemy type.
-            // And attacks more depending on the difficulty (both shooting and special attacks).
-            // If it's the last enemy alive, always uses special moves
-
-
-            // On idle, it doesn't move, when wants to move, unparents from squad, attacks, and then
-            // returns to it's original position and reparents itself
-
             shootingCont = 0;
             CalculateNextShootCd();
-
 
             int rng = Random.Range(0, 5);
 
@@ -82,27 +70,28 @@ public class EnemyController : MonoBehaviour
                 switch (enemyData.type)
                 {
                     case EnemyType.Kamikaze:
-                        transform.DOMove(new Vector3(transform.position.x, -8f, transform.position.z), 2)
+                        transform.DOMove(new Vector3(transform.position.x, -8f, transform.position.z), enemyData.moveDuration)
+                            .SetEase(Ease.Linear)
                             .OnComplete(ReturnToOrigin);
                         break;
                     case EnemyType.ZigZag:
-                        transform.DOMove(new Vector3(transform.position.x, -8f, transform.position.z), 10)
+                        transform.DOMove(new Vector3(transform.position.x, -8f, transform.position.z), enemyData.moveDuration)
+                            .SetEase(Ease.Linear)
                             .OnComplete(ReturnToOrigin);
 
-                        // TODO: Disable THIS on ReturnToOrigin
-                        DOVirtual.Float(0f, Mathf.PI * 2f, 1f / 0.5f, t =>
+                        DOVirtual.Float(0f, Mathf.PI * 2f, 1f / enemyData.specialMoveSpeed, t =>
                         {
-                            float x = Mathf.Sin(t) * 2;
+                            float x = Mathf.Sin(t) * enemyData.specialMoveAmpl;
                             transform.position = new Vector3(startPosX + x, transform.position.y, transform.position.z);
                         })
                         .SetLoops(-1, LoopType.Restart)
-                        .SetEase(Ease.Linear);
-
+                        .SetEase(Ease.Linear)
+                        .SetTarget(transform);
                         break;
                     case EnemyType.Hunter:
-                        // TODO: Check
-                        transform.DOMove(new Vector3(GameManagerScript.Instance.playerInstance.transform.position.x, -8f, transform.position.z), 8)
-                        .OnComplete(ReturnToOrigin);
+                        transform.DOMove(new Vector3(GameManagerScript.Instance.playerInstance.transform.position.x, -8f, transform.position.z), enemyData.moveDuration)
+                            .SetEase(Ease.Linear)
+                            .OnComplete(ReturnToOrigin);
                         break;
                 }
             }
@@ -144,7 +133,6 @@ public class EnemyController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log($"{enemyData.type} received DMG from {collision.gameObject.name}");
-
         OnDeath();
     }
 

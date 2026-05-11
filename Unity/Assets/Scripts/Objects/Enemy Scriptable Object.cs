@@ -9,6 +9,10 @@ public class EnemyScriptableObject : ScriptableObject
 
     public Sprite sprite;
     public EnemyType type;
+
+    public float moveDuration;
+    public float specialMoveSpeed;
+    public float specialMoveAmpl;
 }
 
 [System.Serializable]
