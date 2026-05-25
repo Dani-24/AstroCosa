@@ -4,73 +4,50 @@ import Radar from './components/radar';
 import PowerUps from './components/powerups';
 import Briefing from './components/briefing';
 import Profile from './components/profile';
+import Login from './components/login';
 import { styles } from './styles';
-import 'bootswatch/dist/vapor/bootstrap.min.css';
+// import 'bootswatch/dist/vapor/bootstrap.min.css';
 import { TextInput } from 'react-native-web';
 import { useState } from 'react';
 
+
 export default function App() {
 
-  const {newPlayerName, onNewPlayerName} = useState("");
+  const { nickname, onNickname } = useState("");
 
-  const getPlayerInfo = () => {
-    try {
-      fetch('http://127.0.0.1:8080/graphql', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: `{
-          playerProfile(id: "CTZ9dxYc8LQsTeIURWclUyoAgEB3") { 
-            id, 
-            nickname 
-            lvl,
-            banned,
-            inventory {
-              id,
-              itemName ,
-              rarity
+  const registerPlayer = async () => {
+    const token = await getToken();
+    const res = await fetch('http://127.0.0.1:8080/graphql', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        query: `
+          mutation {
+            registerPlayer(
+              data: {
+                nickname: "${nickname}"
               }
-            }
+            ) { 
+              id, 
+              nickname 
+              lvl,
+              banned,
+              inventory {
+                id,
+                itemName ,
+                rarity
+                }
+              }
           }`,
-        })
       })
-        .then(r => r.json())
-        .then(data => console.log('data returned:', data));
-    } catch (error) {
-      console.error(error)
-    }
-  }
+    });
 
-  const registerPlayer = () => {
-    try {
-      fetch('http://127.0.0.1:8080/graphql', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: `type Mutation {
-          registerPlayer(data: "$Name") { 
-            id, 
-            nickname 
-            lvl,
-            banned,
-            inventory {
-              id,
-              itemName ,
-              rarity
-              }
-            }
-          }`,
-        })
-      })
-        .then(r => r.json())
-        .then(data => console.log('data returned:', data));
-    } catch (error) {
-      console.error(error)
-    }
+    const data = await res.json()
+
+    console.log('data returned:', data);
   }
 
   return (
@@ -78,20 +55,17 @@ export default function App() {
       <Text>Mondongo</Text>
       <StatusBar style="auto" />
 
-      <Pressable onPressIn={getPlayerInfo}>
-        <Text>Get Player Info</Text>
-      </Pressable>
-
       <Pressable onPressIn={registerPlayer}>
         <Text>Register Player</Text>
       </Pressable>
-      <TextInput 
-        onChangeText={onNewPlayerName}
-        value={newPlayerName}
-        style={{borderWidth:1}}/>
+      <TextInput
+        onChangeText={onNickname}
+        value={nickname}
+        style={{ borderWidth: 1 }} />
 
       <Image source={require("./assets/icon.png")} style={{ width: 40, height: 40 }}></Image>
 
+      <Login />
       <Profile />
       <PowerUps />
       <Briefing />
