@@ -38,6 +38,11 @@ export default function Profile() {
         <View style={styles.container}>
             <Text>Profile</Text>
 
+
+            {/* TODO: Show User Name & money? */}
+
+            {/* TODO: getScores by level???? */}
+
             <Pressable onPressIn={getPlayerInfo} style={styles.button}>
                 <Text>Get Player Info</Text>
             </Pressable>

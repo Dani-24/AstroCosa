@@ -6,6 +6,8 @@ const Briefing = () => {
 
     const video = require('../assets/briefing.mp4');
 
+    {/* TODO: Fix this and show it in a modal */}
+
     return (
         <View>
             <Video style={styles.video}

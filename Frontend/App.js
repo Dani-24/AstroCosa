@@ -15,7 +15,7 @@ export default function App() {
   const { nickname, onNickname } = useState("");
 
   const registerPlayer = async () => {
-    const token = await getToken();
+    const token = "" // TODO: Get token from config/firebase.json
     const res = await fetch('http://127.0.0.1:8080/graphql', {
       method: 'POST',
       headers: {
@@ -53,13 +53,13 @@ export default function App() {
       <Text>Projecte 3</Text>
       <StatusBar style="auto" />
 
-      <Pressable onPressIn={registerPlayer}>
-        <Text>Register Player</Text>
-      </Pressable>
       <TextInput
         onChangeText={onNickname}
         value={nickname}
         style={styles.button} />
+      <Pressable onPressIn={registerPlayer}>
+        <Text>Register Player</Text>
+      </Pressable>
 
       <Image source={require("./assets/icon.png")} style={{ width: 40, height: 40 }}></Image>
 
@@ -69,6 +69,10 @@ export default function App() {
         <Briefing />
       </View>
       <Radar />
+      <Pressable>
+        <Text>Play</Text>
+        {/* TODO: createGame mutation, select map from Radar component and run unity canvas */}
+      </Pressable>
     </View>
   );
 }
