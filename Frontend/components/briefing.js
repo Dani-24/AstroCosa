@@ -1,13 +1,19 @@
-import { Text, View } from 'react-native';
+import Video from 'react-native-video';
+import { View } from 'react-native-web';
 import { styles } from '../styles';
 
+const Briefing = () => {
 
-export default function Briefing() {
+    const video = require('../assets/briefing.mp4');
 
     return (
-        <View style={styles.container}>
-            <Text>Video</Text>
+        <View>
+            <Video style={styles.video}
+                source={video}
+                paused={false}
+            />
         </View>
     )
-
 }
+
+export default Briefing;

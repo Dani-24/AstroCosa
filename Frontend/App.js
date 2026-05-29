@@ -4,7 +4,6 @@ import Radar from './components/radar';
 import PowerUps from './components/powerups';
 import Briefing from './components/briefing';
 import Profile from './components/profile';
-import Login from './components/login';
 import { styles } from './styles';
 // import 'bootswatch/dist/vapor/bootstrap.min.css';
 import { TextInput } from 'react-native-web';
@@ -46,13 +45,12 @@ export default function App() {
     });
 
     const data = await res.json()
-
     console.log('data returned:', data);
   }
 
   return (
     <View style={styles.container}>
-      <Text>Mondongo</Text>
+      <Text>Projecte 3</Text>
       <StatusBar style="auto" />
 
       <Pressable onPressIn={registerPlayer}>
@@ -61,16 +59,16 @@ export default function App() {
       <TextInput
         onChangeText={onNickname}
         value={nickname}
-        style={{ borderWidth: 1 }} />
+        style={styles.button} />
 
       <Image source={require("./assets/icon.png")} style={{ width: 40, height: 40 }}></Image>
 
-      <Login />
       <Profile />
       <PowerUps />
-      <Briefing />
+      <View style={styles.container}>
+        <Briefing />
+      </View>
       <Radar />
-
     </View>
   );
 }

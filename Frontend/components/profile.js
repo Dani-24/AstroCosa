@@ -38,7 +38,7 @@ export default function Profile() {
         <View style={styles.container}>
             <Text>Profile</Text>
 
-            <Pressable onPressIn={getPlayerInfo}>
+            <Pressable onPressIn={getPlayerInfo} style={styles.button}>
                 <Text>Get Player Info</Text>
             </Pressable>
         </View>
