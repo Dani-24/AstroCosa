@@ -208,3 +208,5 @@ __marimo__/
 /PinguAPI/config
 /Unity/.vscode
 /Frontend/config
+
+!/PinguAPI/static/unity/Build/

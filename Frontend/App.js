@@ -8,6 +8,7 @@ import { styles } from './styles';
 // import 'bootswatch/dist/vapor/bootstrap.min.css';
 import { TextInput } from 'react-native-web';
 import { useState } from 'react';
+import TheGame from './components/game';
 
 
 export default function App() {
@@ -65,11 +66,15 @@ export default function App() {
 
       <Profile />
       <PowerUps />
+
+      <TheGame/>
+
+
       <View style={styles.container}>
-        <Briefing />
+        <Briefing/>
       </View>
       <Radar />
-      <Pressable>
+      <Pressable style={styles.button}>
         <Text>Play</Text>
         {/* TODO: createGame mutation, select map from Radar component and run unity canvas */}
       </Pressable>
