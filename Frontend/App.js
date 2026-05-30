@@ -1,11 +1,11 @@
 import React from "react";
 import { AppProvider } from "./AppContext";
-import HomePage from './homepage';
+import Login from "./login";
 
 export default function App() {
   return (
     <AppProvider>
-      <HomePage />
+      <Login />
     </AppProvider>
   )
 }
