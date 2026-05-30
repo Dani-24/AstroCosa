@@ -6,5 +6,19 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 1,
+  },
+  button: {
+    borderWidth: 1,
+  },
+  video: {
+    height: 250,
+    width: '100%',
+    borderWidth: 1,
+  },
+  mediaControls: {
+    height: '100%',
+    flex: 1,
+    alignSelf: 'center',
   },
 });
