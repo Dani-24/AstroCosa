@@ -126,10 +126,7 @@ export default function Radar() {
                 id="radar"
                 width="300"
                 height="300"
-                style={{
-                    border: "2px solid #00ff66",
-                    borderRadius: "50%",
-                }}
+                style={styles.radar}
             />
         </View>
     );
@@ -139,4 +136,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
+    radar: {
+        border: "2px solid #00ff66",
+        borderRadius: "50%",
+    }
 })
