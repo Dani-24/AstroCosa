@@ -46,7 +46,7 @@ export default function Profile() {
     return (
         <View style={styles.container}>
             <Text>Nickname</Text>
-            <Text>Money</Text>
+            <Text>Money: 90 €</Text>
 
             {/* TODO: Show User Name & money? */}
 
