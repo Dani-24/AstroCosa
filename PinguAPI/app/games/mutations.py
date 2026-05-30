@@ -39,7 +39,7 @@ class GamesMutations:
     @strawberry.mutation
     def end_game(self, game_id: str) -> Game:
         
-        # TODO: Change state -> Ended. Then return the Game or a custom ErrorGameNotFound
+        # TODO: Return the Game or a custom ErrorGameNotFound
         game_ref = db.collection("Game").document(game_id)
         doc = game_ref.get()
 

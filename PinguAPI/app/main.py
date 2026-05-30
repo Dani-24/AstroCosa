@@ -6,6 +6,7 @@ from strawberry.fastapi import GraphQLRouter, BaseContext
 from schema import Query, Mutation
 from auth import get_actual_user
 from typing import Optional, Dict, Any
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI(title="PinguAPI")
 
@@ -31,6 +32,7 @@ graphql_app = GraphQLRouter(
 origins = [
     "http://localhost:5500",
     "http://127.0.0.1:5500",
+    "http://localhost:8081",
 ]
 
 app.add_middleware(
@@ -41,11 +43,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8080, reload=True)
 
 app.include_router(graphql_app, prefix="/graphql")
+
+app.mount("/unity", StaticFiles(directory="static/unity"), name="unity")
 
 @app.get("/")
 def root():
     return {"msg": "PinguAPI is working succesfully"}
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8080, reload=True)
