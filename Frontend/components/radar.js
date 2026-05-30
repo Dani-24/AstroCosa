@@ -1,5 +1,4 @@
-import { Pressable, Text, View } from 'react-native';
-import { styles } from '../styles';
+import { Pressable, Text, View, StyleSheet } from 'react-native';
 
 export default function Radar() {
 
@@ -28,3 +27,9 @@ export default function Radar() {
     )
 
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+})

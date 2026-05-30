@@ -1,5 +1,4 @@
-import { Text, View } from 'react-native';
-import { styles } from '../styles';
+import { Text, View, StyleSheet } from 'react-native';
 
 export default function PowerUps() {
 
@@ -14,3 +13,9 @@ export default function PowerUps() {
     )
 
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+})
