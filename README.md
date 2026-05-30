@@ -1,5 +1,11 @@
 # Tercer Projecte
 
+## User de firebase:
+
+info@mail.com
+
+123456
+
 ## Backend
 
 El Backend es troba a /PinguAPI

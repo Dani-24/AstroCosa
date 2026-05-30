@@ -12,7 +12,7 @@ export default function Briefing() {
                 style={styles.openButton}
                 onPress={() => setVisible(true)}
             >
-                <Text style={styles.buttonText}>Play Video</Text>
+                <Text style={styles.buttonText}>Briefing</Text>
             </TouchableOpacity>
 
             <Modal
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     },
     openButton: {
         padding: 12,
-        backgroundColor: '#007AFF',
+        backgroundColor: '#65acf8ff',
         borderRadius: 8,
     },
     buttonText: {

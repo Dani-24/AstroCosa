@@ -3,8 +3,8 @@ import { Platform } from 'react-native';
 export default function TheGame() {
 
     const aspectRatio = 9 / 16;
-    const gameHeight = 600;
-    const gameWidth = gameHeight * aspectRatio;
+    const gameHeight = "100vh";
+    const gameWidth = `calc(100vh * ${aspectRatio})`;
 
     if (Platform.OS !== "web") {
         return null;
