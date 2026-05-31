@@ -1,4 +1,4 @@
-
+using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -15,6 +15,8 @@ public class GameManagerScript : MonoBehaviour
     public int timePerStage = 120;
     float currentTimer;
 
+    bool gameEnded = false;
+
     [SerializeField] int increaseDifficultyScore = 200;
     int actualScoreAdded = 0;
 
@@ -25,11 +27,16 @@ public class GameManagerScript : MonoBehaviour
     public GameObject enemyPrefab;
 
     [Header("Canvas")]
+    [SerializeField] CanvasGroup panelHUD;
     [SerializeField] TMP_Text txt_score;
     [SerializeField] TMP_Text txt_totalScore;
     [SerializeField] TMP_Text txt_stage;
     [SerializeField] TMP_Text txt_difficulty;
     [SerializeField] Slider slider_timer;
+
+    [Header("Endgame Canvas")]
+    [SerializeField] CanvasGroup panelEndGame;
+    [SerializeField] TMP_Text txt_summary;
 
     [Header("Player instance (autoset on start)")]
     public GameObject playerInstance;
@@ -66,6 +73,8 @@ public class GameManagerScript : MonoBehaviour
 
     void Update()
     {
+        if (gameEnded) return;
+
         if (enemySquadsAlive.Count <= 0)
         {
             var emptyGO = new GameObject();
@@ -76,7 +85,7 @@ public class GameManagerScript : MonoBehaviour
             enemySquadsAlive.Add(emptyGO);
         }
 
-        if( currentTimer > 0 && stage <= 3)
+        if (currentTimer > 0 && stage <= 3)
         {
             currentTimer -= Time.deltaTime;
             slider_timer.value = currentTimer;
@@ -139,6 +148,28 @@ public class GameManagerScript : MonoBehaviour
     public void IncreaseDifficulty(int increment)
     {
         difficulty += increment;
-        txt_difficulty.text = $"Difficulty: {difficulty:000}%";
+        txt_difficulty.text = $"Difficulty: {difficulty}%";
+    }
+
+    public void EndGame()
+    {
+        playerInstance = null;
+        gameEnded = true;
+
+        Debug.Log("Game finished");
+
+        Sequence seq = DOTween.Sequence();
+
+        seq.Append(panelHUD.DOFade(0f, 2f))
+           .Append(panelEndGame.DOFade(0.9f, 2f))
+           .OnComplete(() =>
+           {
+               panelEndGame.blocksRaycasts = true;
+               panelEndGame.interactable = true;
+           });
+        
+        string stageText = stage > 3 ? "boss" : $"{stage}";
+
+        txt_summary.text = $"Final Score: {totalScore:000000}\r\n\r\nStage Reached: {stageText}\r\nDifficulty: {difficulty}%";
     }
 }

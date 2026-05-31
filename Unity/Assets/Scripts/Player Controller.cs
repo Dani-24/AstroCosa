@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] int hp = 1;
     [SerializeField] float speed = 3f;
     [SerializeField] float shootingCooldown = 1f;
     float shootingCont = 0;
@@ -58,16 +59,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void OnReceiveDmg()
     {
-        // TODO: Receive DMG
-        Debug.Log($"Player Collision DMG from {collision.gameObject.name}");
+        hp--;
+
+        if (hp <= 0)
+        {
+            GameManagerScript.Instance.EndGame();
+
+            // TODO: Explosion vfx
+            Destroy(gameObject);
+        }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log($"Player received BULLET DMG from {collision.gameObject.name}");
-
-        Destroy(collision.gameObject);
+        Debug.Log($"Player Collision DMG from {collision.gameObject.name}");
+        OnReceiveDmg();
     }
 }
