@@ -13,7 +13,7 @@ export default function Radar() {
             { x: 80, y: 60, name: "Mission 1", alpha: 0 },
             { x: 200, y: 120, name: "Mission 2", alpha: 0 },
             { x: 140, y: 220, name: "Mission 3", alpha: 0 },
-            { x: 140, y: 100, name: "Boss", isBoss: true, alpha: 0 },
+            { x: 140, y: 100, name: "???", isBoss: true, alpha: 0 },
         ];
 
         let angle = 0;
