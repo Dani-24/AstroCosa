@@ -533,7 +533,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 173.5}
+  m_AnchoredPosition: {x: 0, y: 134.59904}
   m_SizeDelta: {x: 500, y: -717}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &280005080
@@ -812,7 +812,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 541}
+  m_AnchoredPosition: {x: 0, y: 502.09906}
   m_SizeDelta: {x: 400, y: -1230}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &388820386
@@ -2041,7 +2041,8 @@ MonoBehaviour:
   score: 0
   totalScore: 0
   difficulty: 10
-  timePerStage: 10
+  timePerStage: 40
+  gameEnded: 0
   increaseDifficultyScore: 200
   spawnPoints:
   - {fileID: 1499445777}
@@ -2059,6 +2060,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c8cea543cb7e61547b696b1253668e27, type: 2}
   - {fileID: 11400000, guid: 9e445756c7fab5546a2e363617f7aedb, type: 2}
   enemyPrefab: {fileID: 1315613627137722576, guid: 30fc8d79fcbeadc47b79b4dd5fdd2aa3, type: 3}
+  bossPrefab: {fileID: 2597252042493804294, guid: 1325753301d740a419ad9d0cf483da2e, type: 3}
   panelHUD: {fileID: 1876253081}
   txt_score: {fileID: 2117580262}
   txt_totalScore: {fileID: 192827332}

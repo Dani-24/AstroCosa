@@ -15,7 +15,8 @@ public class GameManagerScript : MonoBehaviour
     public int timePerStage = 120;
     float currentTimer;
 
-    bool gameEnded = false;
+    public bool gameEnded = false;
+    bool bossSpawned = false;
 
     [SerializeField] int increaseDifficultyScore = 200;
     int actualScoreAdded = 0;
@@ -25,6 +26,7 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField] List<GameObject> enemySquadsAlive = new();
     [SerializeField] FormationScriptableObject[] formationsAvailable;
     public GameObject enemyPrefab;
+    public GameObject bossPrefab;
 
     [Header("Canvas")]
     [SerializeField] CanvasGroup panelHUD;
@@ -73,10 +75,18 @@ public class GameManagerScript : MonoBehaviour
 
     void Update()
     {
-        if (gameEnded) return;
+        if (gameEnded || bossSpawned) return;
 
         if (enemySquadsAlive.Count <= 0)
         {
+            if (stage > 3)
+            {
+                bossSpawned = true;
+                panelHUD.DOFade(0f, 2f);
+                Instantiate(bossPrefab);
+                return;
+            }
+
             var emptyGO = new GameObject();
             emptyGO.transform.position = spawnPoints[Random.Range(0, spawnPoints.Length)].position;
             emptyGO.AddComponent<SquadController>();
@@ -105,7 +115,7 @@ public class GameManagerScript : MonoBehaviour
             AddScore(0);
 
             stage++;
-            txt_stage.text = stage > 3 ? $"Stage: boss" : $"Stage: {stage}";
+            txt_stage.text = stage > 3 ? $"Stage: ???" : $"Stage: {stage}";
             IncreaseDifficulty(20);
         }
     }
@@ -129,6 +139,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void RemoveSquad(GameObject squad)
     {
+        AddScore(1000);
         enemySquadsAlive.Remove(squad);
     }
 

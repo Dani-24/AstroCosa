@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : Character
 {
 
     public SquadController squad;
@@ -119,7 +119,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    void ReturnToOrigin()
+    public void ReturnToOrigin()
     {
         transform.DOKill();
         transform.position = new Vector3(transform.position.x, 8f, transform.position.z);
@@ -132,7 +132,13 @@ public class EnemyController : MonoBehaviour
         enemyWandering = true;
     }
 
-    public void OnDeath()
+    public override void OnReceiveDmg()
+    {
+        OnDeath();
+    }
+
+
+    public override void OnDeath()
     {
         GameManagerScript.Instance.AddScore(enemyData.EXP);
 
@@ -144,7 +150,6 @@ public class EnemyController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log($"{enemyData.type} received DMG from {collision.gameObject.name}");
         OnDeath();
     }
 }

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Character
 {
     [SerializeField] int hp = 1;
     [SerializeField] float speed = 3f;
@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (GameManagerScript.Instance.gameEnded) return;
+
         // Movement
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
         Vector3 pos = transform.position;
@@ -59,17 +61,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnReceiveDmg()
+    public override void OnReceiveDmg()
     {
         hp--;
 
-        if (hp <= 0)
-        {
-            GameManagerScript.Instance.EndGame();
+        if (hp <= 0) OnDeath();
+    }
 
-            // TODO: Explosion vfx
-            Destroy(gameObject);
-        }
+    public override void OnDeath()
+    {
+        GameManagerScript.Instance.EndGame();
+
+        // TODO: Explosion vfx
+        Destroy(gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

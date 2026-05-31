@@ -9,16 +9,12 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(new Vector3(0f, speed * Time.deltaTime, 0f));
+        if (speed == 0) return;
 
-        if (cont < lifeTime)
-        {
-            cont += Time.deltaTime;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        transform.position += speed * Time.deltaTime * transform.up;
+
+        if (cont < lifeTime) cont += Time.deltaTime;
+        else Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -26,16 +22,9 @@ public class Bullet : MonoBehaviour
         Debug.Log($"Bullet hitted: {collision.gameObject.name}");
         Destroy(gameObject);
 
-        EnemyController enemy = collision.GetComponent<EnemyController>();
-        if (enemy != null)
-        {
-            enemy.OnDeath();
-        }
-        else
-        {
-            PlayerController player = collision.GetComponent<PlayerController>();
-            if(player != null) player.OnReceiveDmg();
-        }
+        Character ch = collision.GetComponent<Character>();
 
+        if (ch != null)
+            ch.OnReceiveDmg();
     }
 }
