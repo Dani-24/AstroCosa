@@ -1,6 +1,6 @@
 # Tercer Projecte
 
-## User de firebase:
+## User de firebase (Requerit al login del frontend):
 
 info@mail.com
 
