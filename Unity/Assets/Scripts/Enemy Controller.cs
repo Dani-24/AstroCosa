@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : Character
 {
 
     public SquadController squad;
@@ -89,7 +89,17 @@ public class EnemyController : MonoBehaviour
                         .SetTarget(transform);
                         break;
                     case EnemyType.Hunter:
-                        transform.DOMove(new Vector3(GameManagerScript.Instance.playerInstance.transform.position.x, -8f, transform.position.z), enemyData.moveDuration)
+
+                        if (GameManagerScript.Instance.playerInstance == null)
+                        {
+                            ReturnToOrigin();
+                            break;
+                        }
+
+                        float targetPosX = GameManagerScript.Instance.playerInstance.transform.position.x;
+                        float targetPosY = GameManagerScript.Instance.playerInstance.transform.position.y;
+
+                        transform.DOMove(new Vector3(targetPosX, targetPosY, transform.position.z), enemyData.moveDuration)
                             .SetEase(Ease.Linear)
                             .OnComplete(ReturnToOrigin);
                         break;
@@ -98,7 +108,7 @@ public class EnemyController : MonoBehaviour
             else
             {
                 GameObject newBullet = Instantiate(bulletPrefab, transform);
-                newBullet.GetComponent<Bullet>().speed *= -1;
+                newBullet.GetComponent<Bullet>().speed = -enemyData.bulletSpeed;
                 newBullet.transform.parent = null;
                 newBullet.layer = 6;
             }
@@ -109,7 +119,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    void ReturnToOrigin()
+    public void ReturnToOrigin()
     {
         transform.DOKill();
         transform.position = new Vector3(transform.position.x, 8f, transform.position.z);
@@ -122,24 +132,24 @@ public class EnemyController : MonoBehaviour
         enemyWandering = true;
     }
 
-    void OnDeath()
+    public override void OnReceiveDmg()
     {
-        GameManagerScript.Instance.score += enemyData.EXP;
+        OnDeath();
+    }
+
+
+    public override void OnDeath()
+    {
+        GameManagerScript.Instance.AddScore(enemyData.EXP);
 
         squad.RemoveEnemyFromList(gameObject);
+
+        // TODO: Some explosion vfx
         Destroy(gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log($"{enemyData.type} received DMG from {collision.gameObject.name}");
-        OnDeath();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log($"{enemyData.type} received BULLET DMG from {collision.gameObject.name}");
-        Destroy(collision.gameObject);
         OnDeath();
     }
 }

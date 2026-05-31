@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 1
   DMG: 1
-  EXP: 1
+  EXP: 50
+  bulletSpeed: 2
   sprite: {fileID: 3625043607559282579, guid: c04fc3bec90d69e48ad006a42dd2dcf4, type: 3}
   type: 0
   moveDuration: 1.5

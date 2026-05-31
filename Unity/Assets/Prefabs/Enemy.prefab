@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3750034518136481313}
+  - component: {fileID: 4642886903563904478}
   - component: {fileID: 674077759971664981}
   - component: {fileID: 6383467007594598193}
   - component: {fileID: -3554792214976711859}
-  - component: {fileID: 4642886903563904478}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -35,6 +35,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4642886903563904478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1315613627137722576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b677d7cb71fe3f74192ed2e22a1782ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  squad: {fileID: 0}
+  originalPosInSquad: {x: 0, y: 0}
+  enemyData: {fileID: 0}
+  shootingCooldown: 60
+  bulletPrefab: {fileID: 1683161473668639534, guid: 4ec81c653bbf8df49829b8e047f7a16d, type: 3}
 --- !u!212 &674077759971664981
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -159,24 +176,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &4642886903563904478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1315613627137722576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b677d7cb71fe3f74192ed2e22a1782ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  squad: {fileID: 0}
-  originalPosInSquad: {x: 0, y: 0}
-  enemyData: {fileID: 0}
-  shootingCooldown: 60
-  bulletPrefab: {fileID: 1683161473668639534, guid: 4ec81c653bbf8df49829b8e047f7a16d, type: 3}

@@ -9,8 +9,12 @@ public class SquadController : MonoBehaviour
 
     public bool wandering = false;
 
+    public bool squadIsEnabled = true;
+
     void Start()
     {
+        if (!squadIsEnabled) return;
+
         // Create enemies
         foreach (var slot in squadFormation.slots)
         {
@@ -41,17 +45,14 @@ public class SquadController : MonoBehaviour
         wandering = true;
     }
 
-    void Update()
-    {
-    }
-
     public void RemoveEnemyFromList(GameObject enemy)
     {
         enemies.Remove(enemy);
 
-        if (enemies.Count <= 0)
+        if (enemies.Count <= 0 && squadIsEnabled)
         {
-            GameManagerScript.Instance.RemoveSquad(this.gameObject);
+            GameManagerScript.Instance.RemoveSquad(gameObject);
+            Destroy(gameObject);
         }
     }
 }

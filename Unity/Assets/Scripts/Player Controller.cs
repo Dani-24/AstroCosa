@@ -1,12 +1,14 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Character
 {
+    [SerializeField] int hp = 1;
     [SerializeField] float speed = 3f;
     [SerializeField] float shootingCooldown = 1f;
     float shootingCont = 0;
+
+    [SerializeField] float bulletSpeed = 10;
 
     InputAction moveAction;
     InputAction shootAction;
@@ -25,6 +27,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (GameManagerScript.Instance.gameEnded) return;
+
         // Movement
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
         Vector3 pos = transform.position;
@@ -47,6 +51,7 @@ public class PlayerController : MonoBehaviour
             shootingCont = 0;
 
             GameObject newBullet = Instantiate(bulletPrefab, transform);
+            newBullet.GetComponent<Bullet>().speed = bulletSpeed;
             newBullet.transform.parent = null;
         }
         else
@@ -55,16 +60,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public override void OnReceiveDmg()
     {
-        // TODO: Receive DMG
-        Debug.Log($"Player Collision DMG from {collision.gameObject.name}");
+        hp--;
+
+        if (hp <= 0) OnDeath();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public override void OnDeath()
     {
-        Debug.Log($"Player received BULLET DMG from {collision.gameObject.name}");
+        GameManagerScript.Instance.EndGame();
 
-        Destroy(collision.gameObject);
+        // TODO: Explosion vfx
+        Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log($"Player Collision DMG from {collision.gameObject.name}");
+        OnReceiveDmg();
     }
 }

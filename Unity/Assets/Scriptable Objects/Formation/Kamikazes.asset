@@ -62,7 +62,7 @@ MonoBehaviour:
   - position: {x: -0.5, y: 6}
     enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
   minStage: 1
-  maxStage: 3
+  maxStage: 2
   spawnDuration: 5
   wanderFreq: 0.1
   wanderAmpl: 0.5
