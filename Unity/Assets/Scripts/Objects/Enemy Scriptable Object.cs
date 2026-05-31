@@ -7,6 +7,8 @@ public class EnemyScriptableObject : ScriptableObject
     public int DMG;
     public int EXP;
 
+    public float bulletSpeed;
+
     public Sprite sprite;
     public EnemyType type;
 

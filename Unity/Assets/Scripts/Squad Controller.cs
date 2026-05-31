@@ -52,6 +52,7 @@ public class SquadController : MonoBehaviour
         if (enemies.Count <= 0)
         {
             GameManagerScript.Instance.RemoveSquad(this.gameObject);
+            Destroy(gameObject);
         }
     }
 }

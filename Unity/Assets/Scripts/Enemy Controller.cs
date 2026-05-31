@@ -98,7 +98,7 @@ public class EnemyController : MonoBehaviour
             else
             {
                 GameObject newBullet = Instantiate(bulletPrefab, transform);
-                newBullet.GetComponent<Bullet>().speed *= -1;
+                newBullet.GetComponent<Bullet>().speed = -enemyData.bulletSpeed;
                 newBullet.transform.parent = null;
                 newBullet.layer = 6;
             }
@@ -124,9 +124,11 @@ public class EnemyController : MonoBehaviour
 
     void OnDeath()
     {
-        GameManagerScript.Instance.score += enemyData.EXP;
+        GameManagerScript.Instance.AddScore(enemyData.EXP);
 
         squad.RemoveEnemyFromList(gameObject);
+
+        // TODO: Some explosion vfx
         Destroy(gameObject);
     }
 

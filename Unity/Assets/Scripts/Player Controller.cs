@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float shootingCooldown = 1f;
     float shootingCont = 0;
 
+    [SerializeField] float bulletSpeed = 10;
+
     InputAction moveAction;
     InputAction shootAction;
 
@@ -47,6 +49,7 @@ public class PlayerController : MonoBehaviour
             shootingCont = 0;
 
             GameObject newBullet = Instantiate(bulletPrefab, transform);
+            newBullet.GetComponent<Bullet>().speed = bulletSpeed;
             newBullet.transform.parent = null;
         }
         else
