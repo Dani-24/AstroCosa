@@ -470,6 +470,8 @@ public class BossController : Character
     {
         yield return DestroyRing(innerCannons, innerRing.gameObject);
 
+        yield return new WaitForSeconds(1);
+
         GameManagerScript.Instance.EndGame();
         Destroy(gameObject);
     }
