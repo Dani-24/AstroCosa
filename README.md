@@ -1,5 +1,11 @@
 # Tercer Projecte
 
+## Joc
+
+Controls: 
+* Tecles A/D o fletxa esquerra/dreta pel moviment
+* Click Esquerra per disparar
+
 ## User de firebase (Requerit al login del frontend):
 
 info@mail.com
