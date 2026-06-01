@@ -15,7 +15,7 @@ MonoBehaviour:
   HP: 1
   DMG: 1
   EXP: 500
-  bulletSpeed: 7
+  bulletSpeed: 4
   sprite: {fileID: -2370219927294891556, guid: fb1a9621bb23dff4b9688163ae2838a1, type: 3}
   type: 2
   moveDuration: 2

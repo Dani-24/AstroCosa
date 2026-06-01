@@ -37,4 +37,4 @@ MonoBehaviour:
   maxStage: 3
   spawnDuration: 3
   wanderFreq: 0.4
-  wanderAmpl: 2
+  wanderAmpl: 0.5

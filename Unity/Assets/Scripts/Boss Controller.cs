@@ -2,6 +2,7 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -447,11 +448,18 @@ public class BossController : Character
             detonationPositions[r] = tmp;
         }
 
+        List<Vector3> positions = new();
+        foreach (Transform t in detonationPositions)
+        {
+            if (t != null)
+                positions.Add(t.position);
+        }
+
         Destroy(ringToDestroy);
 
-        for (int i = 0; i < detonationPositions.Length; i++)
+        for (int i = 0; i < positions.Count; i++)
         {
-            GameObject explo = Instantiate(explosionPrefab, detonationPositions[i]);
+            GameObject explo = Instantiate(explosionPrefab, positions[i], Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f)));
             explo.transform.parent = null;
 
             yield return new WaitForSeconds(0.2f);
