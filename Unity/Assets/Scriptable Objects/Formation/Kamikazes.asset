@@ -13,53 +13,53 @@ MonoBehaviour:
   m_Name: Kamikazes
   m_EditorClassIdentifier: 
   slots:
-  - position: {x: -1.5, y: 5}
-    enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
-  - position: {x: -1, y: 6}
-    enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
-  - position: {x: -1.5, y: 6}
-    enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
-  - position: {x: -2, y: 6}
-    enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
-  - position: {x: -0.5, y: 5}
-    enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
-  - position: {x: -1, y: 5}
-    enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
-  - position: {x: -0.5, y: 3}
+  - position: {x: -1.5, y: 3}
     enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
   - position: {x: -1, y: 4}
     enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
-  - position: {x: 1.5, y: 5}
+  - position: {x: -1.5, y: 4}
     enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
-  - position: {x: 1.5, y: 6}
+  - position: {x: -2, y: 4}
     enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
-  - position: {x: 1, y: 6}
+  - position: {x: -0.5, y: 3}
     enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
-  - position: {x: 0.5, y: 5}
+  - position: {x: -1, y: 3}
     enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
-  - position: {x: 0, y: 5}
+  - position: {x: -0.5, y: 1}
     enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
-  - position: {x: 0, y: 4}
+  - position: {x: -1, y: 2}
     enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
-  - position: {x: 0, y: 6}
+  - position: {x: 1.5, y: 3}
     enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
-  - position: {x: 0.5, y: 4}
-    enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
-  - position: {x: 0.5, y: 6}
-    enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
-  - position: {x: 0.5, y: 3}
-    enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
-  - position: {x: 1, y: 5}
-    enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
-  - position: {x: 0, y: 3}
+  - position: {x: 1.5, y: 4}
     enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
   - position: {x: 1, y: 4}
     enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
-  - position: {x: 2, y: 6}
+  - position: {x: 0.5, y: 3}
+    enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
+  - position: {x: 0, y: 3}
+    enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
+  - position: {x: 0, y: 2}
+    enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
+  - position: {x: 0, y: 3}
+    enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
+  - position: {x: 0.5, y: 2}
+    enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
+  - position: {x: 0.5, y: 3}
+    enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
+  - position: {x: 0.5, y: 1}
+    enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
+  - position: {x: 1, y: 3}
+    enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
+  - position: {x: 0, y: 1}
+    enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
+  - position: {x: 1, y: 2}
+    enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
+  - position: {x: 2, y: 4}
+    enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
+  - position: {x: -0.5, y: 2}
     enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
   - position: {x: -0.5, y: 4}
-    enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
-  - position: {x: -0.5, y: 6}
     enemy: {fileID: 11400000, guid: 2ea60c99375ae13479b766eef4df4487, type: 2}
   minStage: 1
   maxStage: 2

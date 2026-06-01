@@ -15,6 +15,8 @@ public class EnemyScriptableObject : ScriptableObject
     public float moveDuration;
     public float specialMoveSpeed;
     public float specialMoveAmpl;
+
+    public AudioClip[] audios;
 }
 
 [System.Serializable]

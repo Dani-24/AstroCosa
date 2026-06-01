@@ -14,6 +14,7 @@ public class PlayerController : Character
     InputAction shootAction;
 
     [SerializeField] GameObject bulletPrefab;
+    [SerializeField] GameObject explosionPrefab;
 
     void Start()
     {
@@ -53,6 +54,7 @@ public class PlayerController : Character
             GameObject newBullet = Instantiate(bulletPrefab, transform);
             newBullet.GetComponent<Bullet>().speed = bulletSpeed;
             newBullet.transform.parent = null;
+            newBullet.GetComponent<AudioSource>().volume = newBullet.GetComponent<AudioSource>().volume / 2;
         }
         else
         {
@@ -71,7 +73,10 @@ public class PlayerController : Character
     {
         GameManagerScript.Instance.EndGame();
 
-        // TODO: Explosion vfx
+        // Some explosion vfx
+        GameObject explo = Instantiate(explosionPrefab, transform);
+        explo.transform.parent = null;
+
         Destroy(gameObject);
     }
 

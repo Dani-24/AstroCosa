@@ -13,11 +13,16 @@ public class EnemyController : Character
     float shootingCont = 0;
 
     [SerializeField] GameObject bulletPrefab;
+    [SerializeField] GameObject explosionPrefab;
 
     bool enemyWandering = true;
 
+    public float pitchVariation = 0.05f;
+    AudioSource audioSource;
+
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = enemyData.sprite;
 
@@ -62,6 +67,9 @@ public class EnemyController : Character
             if (rng == 0 && squad.wandering && enemyWandering)
             {
                 // SPECIAL ATTACK
+                audioSource.clip = enemyData.audios[Random.Range(0, enemyData.audios.Length)];
+                audioSource.pitch = Random.Range(1f - pitchVariation, 1f + pitchVariation);
+                audioSource.Play();
 
                 transform.parent = null;
                 enemyWandering = false;
@@ -121,6 +129,8 @@ public class EnemyController : Character
 
     public void ReturnToOrigin()
     {
+        if(audioSource != null) audioSource.Stop();
+
         transform.DOKill();
         transform.position = new Vector3(transform.position.x, 8f, transform.position.z);
         transform.parent = squad.transform;
@@ -144,7 +154,10 @@ public class EnemyController : Character
 
         squad.RemoveEnemyFromList(gameObject);
 
-        // TODO: Some explosion vfx
+        // Some explosion vfx
+        GameObject explo = Instantiate(explosionPrefab, transform);
+        explo.transform.parent = null;
+
         Destroy(gameObject);
     }
 
