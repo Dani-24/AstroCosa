@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManagerScript : MonoBehaviour
@@ -48,14 +49,15 @@ public class GameManagerScript : MonoBehaviour
     private static GameManagerScript _instance;
     public static GameManagerScript Instance { get { return _instance; } }
 
+    // Modified to reload on replay
     private void Awake()
     {
         if (_instance != null && Instance != null)
-            Destroy(this.gameObject);
-        else
-            _instance = this;
+            Destroy(_instance);
 
-        DontDestroyOnLoad(this.gameObject);
+        _instance = this;
+
+        //DontDestroyOnLoad(this.gameObject);
     }
 
     #endregion
@@ -183,5 +185,11 @@ public class GameManagerScript : MonoBehaviour
 
         totalScore += score;
         txt_summary.text = $"Final Score: {totalScore:000000}\r\n\r\nStage Reached: {stageText}\r\nDifficulty: {difficulty}%";
+    }
+
+    public void ReloadScene()
+    {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentSceneName);
     }
 }
