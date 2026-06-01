@@ -2,6 +2,7 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,7 @@ public class BossController : Character
     private List<Func<IEnumerator>> attacksAvailable;
 
     float timeUntilNextAtk = 5;
+    float baseAttackCdn;
     float timeUntilNextWanderBullet = 2;
     float wanderBulletsCont;
 
@@ -70,16 +72,26 @@ public class BossController : Character
     [SerializeField] Slider slider_hp;
     [SerializeField] CanvasGroup hp_panel;
 
+    [Header("Prefabs")]
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] GameObject circularBulletPrefab;
+    [SerializeField] GameObject explosionPrefab;
 
     bool firstAppearance = true;
 
     CircleCollider2D coll;
     [SerializeField] GameObject helix;
 
+    [Header("Audio")]
+    public AudioClip ventilatorAttackSFX;
+    public AudioClip healSFX;
+    public AudioClip hitSFX;
+    public float pitchVariation = 0.1f;
+    AudioSource audioSource;
+
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         coll = GetComponent<CircleCollider2D>();
 
         isInvulnerable = true;
@@ -104,6 +116,8 @@ public class BossController : Character
 
         slider_hp.maxValue = HP;
         slider_hp.value = 0;
+
+        baseAttackCdn = timeUntilNextAtk;
     }
 
     void Update()
@@ -124,7 +138,7 @@ public class BossController : Character
                     wanderBulletsCont -= Time.deltaTime;
                 else
                 {
-                    wanderBulletsCont = timeUntilNextWanderBullet + UnityEngine.Random.Range(-1, 1);
+                    wanderBulletsCont = (timeUntilNextWanderBullet + UnityEngine.Random.Range(-2, 1)) / (1 + GameManagerScript.Instance.difficulty * 0.03f);
                     GameObject bullet = Instantiate(bulletPrefab, transform);
                     bullet.GetComponent<Bullet>().speed = -bulletSpeed;
                     bullet.transform.parent = null;
@@ -133,7 +147,7 @@ public class BossController : Character
             }
             else
             {
-                timeUntilNextAtk = 5 + UnityEngine.Random.Range(-1, 4);
+                timeUntilNextAtk = baseAttackCdn + UnityEngine.Random.Range(-1, 4);
                 isAttacking = true;
                 wanderTween?.Kill();
                 transform.DOKill();
@@ -148,32 +162,31 @@ public class BossController : Character
             actualPhase = BossPhases.Half;
 
             // Looses the first ring, the collider is shrinked
-            Destroy(outerRing.gameObject);
+            StartCoroutine(DestroyRing(outerCannons, outerRing.gameObject));
             coll.radius = middleRadius;
-            //StopAllCoroutines();
 
-            moveSpeed *= 1.3f;
+            moveSpeed *= 1.5f;
+            baseAttackCdn = 2.5f;
 
             // Other enemies can also appear when a special attack ends
             foreach (EnemyScriptableObject e in otherEnemies)
                 enemiesAvailable.Add(e);
 
             attacksAvailable.Add(RandomBulshAttack);
+            attacksAvailable.Add(KamikazeAttack);
         }
         if (!isInvulnerable && GetCurrentHP_Percent() <= 25 && (actualPhase == BossPhases.Initial || actualPhase == BossPhases.Half))
         {
             actualPhase = BossPhases.Final;
 
             // Looses the second ring, the collider is shrinked
-            Destroy(middleRing.gameObject);
+            StartCoroutine(DestroyRing(middleCannons, middleRing.gameObject));
             coll.radius = innerRadius;
-            //StopAllCoroutines();
 
             actInnSpd = innerSpeed *= 4;
+            moveSpeed *= 2f;
+            baseAttackCdn = 0.5f;
 
-            moveSpeed *= 1.2f;
-
-            attacksAvailable.Add(KamikazeAttack);
             attacksAvailable.Add(VoidAttack);
         }
     }
@@ -211,9 +224,15 @@ public class BossController : Character
         isInvulnerable = false;
     }
 
+    #region Attacks
+
     IEnumerator EnemySummoning()
     {
-        int enemiesToSpawn = UnityEngine.Random.Range(1, 5 + (int)(0.1f * GameManagerScript.Instance.difficulty));
+        int minEnemies = 2;
+        if (actualPhase == BossPhases.Half) minEnemies = 3;
+        if (actualPhase == BossPhases.Final) minEnemies = 4;
+
+        int enemiesToSpawn = UnityEngine.Random.Range(minEnemies, 6 + (int)(0.1f * GameManagerScript.Instance.difficulty));
 
         for (int i = 0; i < enemiesToSpawn; i++)
         {
@@ -263,7 +282,7 @@ public class BossController : Character
                 newBullet.layer = 6;
             }
 
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(0.35f);
         }
 
         yield return new WaitForSeconds(1);
@@ -280,12 +299,15 @@ public class BossController : Character
 
         for (int i = 0; i < 3 + 0.01f * GameManagerScript.Instance.difficulty; i++)
         {
-            Vector3 playerPos = GameManagerScript.Instance.playerInstance.transform.position;
+            Vector3 playerPos = Vector3.zero;
+
+            if (GameManagerScript.Instance.playerInstance != null)
+                playerPos = GameManagerScript.Instance.playerInstance.transform.position;
 
             for (int j = 0; j < 20 + 0.1f * GameManagerScript.Instance.difficulty; j++)
             {
                 Vector2 dir = (playerPos - transform.position).normalized;
-                float spread = UnityEngine.Random.Range(-7f, 7f);
+                float spread = UnityEngine.Random.Range(-7.75f, 7.75f);
 
                 dir = Quaternion.Euler(0f, 0f, spread) * dir;
 
@@ -293,9 +315,9 @@ public class BossController : Character
                 newBullet.GetComponent<Bullet>().speed = -bulletSpeed;
                 newBullet.transform.parent = null;
                 newBullet.layer = 6;
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForSeconds(0.04f);
             }
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.7f);
         }
         ResetPosition(2);
         StartCoroutine(EnemySummoning());
@@ -310,17 +332,17 @@ public class BossController : Character
 
         yield return new WaitForSeconds(2f);
 
-        transform.DOMove(new Vector3(transform.position.x, -6f, transform.position.z), 4f)
+        transform.DOMove(new Vector3(transform.position.x, -6f, transform.position.z), 2.5f)
             .SetEase(Ease.OutQuad);
 
-        yield return new WaitForSeconds(4.1f);
+        yield return new WaitForSeconds(2.6f);
 
-        transform.DOMove(new Vector3(transform.position.x, 3, transform.position.z), 4f)
+        transform.DOMove(new Vector3(transform.position.x, 3, transform.position.z), 2.5f)
             .SetEase(Ease.OutQuad);
 
-        yield return new WaitForSeconds(4.1f);
+        yield return new WaitForSeconds(2.6f);
 
-        ResetPosition(2);
+        ResetPosition(0.25f);
         StartCoroutine(EnemySummoning());
     }
 
@@ -334,6 +356,10 @@ public class BossController : Character
 
         float attackDuration = 8;
         float elapsed = 0f;
+
+        audioSource.clip = ventilatorAttackSFX;
+        audioSource.pitch = UnityEngine.Random.Range(1f - pitchVariation, 1f + pitchVariation);
+        audioSource.Play();
 
         while (elapsed < attackDuration)
         {
@@ -360,9 +386,13 @@ public class BossController : Character
 
         yield return new WaitForSeconds(2);
 
-        ResetPosition(4);
+        ResetPosition(3);
         StartCoroutine(EnemySummoning());
     }
+
+    #endregion
+
+    #region Life and Damage
 
     public int GetCurrentHP()
     {
@@ -379,13 +409,20 @@ public class BossController : Character
         if (isAbsorving)
         {
             absorved++;
-            currentHP++;
+            currentHP += 2;
             slider_hp.value = currentHP;
+
+            audioSource.pitch = UnityEngine.Random.Range(1f - pitchVariation, 1f + pitchVariation);
+            audioSource.PlayOneShot(healSFX);
         }
         if (isInvulnerable) return;
 
         currentHP--;
         slider_hp.value = currentHP;
+
+        audioSource.clip = hitSFX;
+        audioSource.pitch = UnityEngine.Random.Range(1f - pitchVariation, 1f + pitchVariation);
+        audioSource.PlayOneShot(hitSFX);
 
         if (currentHP <= 0)
             OnDeath();
@@ -393,7 +430,48 @@ public class BossController : Character
 
     public override void OnDeath()
     {
+        isInvulnerable = true;
         GameManagerScript.Instance.AddScore(EXP);
+        StartCoroutine(DeathAnimation());
+    }
+
+    #endregion
+
+    IEnumerator DestroyRing(Transform[] detonationPositions, GameObject ringToDestroy)
+    {
+        // Shuffle
+        for (int t = 0; t < detonationPositions.Length; t++)
+        {
+            Transform tmp = detonationPositions[t];
+            int r = UnityEngine.Random.Range(t, detonationPositions.Length);
+            detonationPositions[t] = detonationPositions[r];
+            detonationPositions[r] = tmp;
+        }
+
+        List<Vector3> positions = new();
+        foreach (Transform t in detonationPositions)
+        {
+            if (t != null)
+                positions.Add(t.position);
+        }
+
+        Destroy(ringToDestroy);
+
+        for (int i = 0; i < positions.Count; i++)
+        {
+            GameObject explo = Instantiate(explosionPrefab, positions[i], Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f)));
+            explo.transform.parent = null;
+
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+
+    IEnumerator DeathAnimation()
+    {
+        yield return DestroyRing(innerCannons, innerRing.gameObject);
+
+        yield return new WaitForSeconds(1);
+
         GameManagerScript.Instance.EndGame();
         Destroy(gameObject);
     }

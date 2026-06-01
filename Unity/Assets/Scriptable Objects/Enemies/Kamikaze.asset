@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 1
   DMG: 1
-  EXP: 50
+  EXP: 100
   bulletSpeed: 2
-  sprite: {fileID: 3625043607559282579, guid: c04fc3bec90d69e48ad006a42dd2dcf4, type: 3}
+  sprite: {fileID: -5239757195476112093, guid: 7ebec677f1b63564fbc64a0fc48fdc7b, type: 3}
   type: 0
   moveDuration: 1.5
   specialMoveSpeed: 0
   specialMoveAmpl: 0
+  audios:
+  - {fileID: 8300000, guid: 31ee661a7612c5f45af9c7c04a2d00ca, type: 3}

@@ -108,7 +108,7 @@ public class GameManagerScript : MonoBehaviour
             slider_timer.value = currentTimer;
 
             // Reset Score
-            totalScore = score;
+            totalScore += score;
             txt_totalScore.text = $"Total: {totalScore:000000}";
 
             score = 0;
@@ -181,6 +181,7 @@ public class GameManagerScript : MonoBehaviour
         
         string stageText = stage > 3 ? "boss" : $"{stage}";
 
+        totalScore += score;
         txt_summary.text = $"Final Score: {totalScore:000000}\r\n\r\nStage Reached: {stageText}\r\nDifficulty: {difficulty}%";
     }
 }

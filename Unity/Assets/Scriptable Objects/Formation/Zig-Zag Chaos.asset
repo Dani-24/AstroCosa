@@ -13,55 +13,35 @@ MonoBehaviour:
   m_Name: Zig-Zag Chaos
   m_EditorClassIdentifier: 
   slots:
-  - position: {x: -2, y: 5}
-    enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
-  - position: {x: -1, y: 6}
-    enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
-  - position: {x: -1.5, y: 6}
-    enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
-  - position: {x: -2, y: 6}
-    enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
-  - position: {x: -1, y: 5}
-    enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
-  - position: {x: -1.5, y: 5}
-    enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
   - position: {x: -0.5, y: 3}
     enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
-  - position: {x: -2, y: 3}
+  - position: {x: -1, y: 3.5}
     enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
-  - position: {x: 2, y: 5}
+  - position: {x: -1, y: 0.5}
     enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
-  - position: {x: 1.5, y: 6}
-    enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
-  - position: {x: 1, y: 6}
-    enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
-  - position: {x: 1, y: 5}
-    enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
-  - position: {x: 2, y: 3}
-    enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
-  - position: {x: -0.5, y: 4.5}
-    enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
-  - position: {x: 0, y: 6.5}
-    enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
-  - position: {x: 0.5, y: 4.5}
-    enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
-  - position: {x: 0.5, y: 5.5}
+  - position: {x: -0.5, y: 1}
     enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
   - position: {x: 0.5, y: 3}
     enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
-  - position: {x: 1.5, y: 5}
+  - position: {x: 1, y: 3.5}
     enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
-  - position: {x: 0, y: 3.5}
+  - position: {x: 1, y: 0.5}
     enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
-  - position: {x: 0, y: 4}
+  - position: {x: 0.5, y: 1}
     enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
-  - position: {x: 1.5, y: 3.5}
+  - position: {x: 1.5, y: 1}
     enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
-  - position: {x: 2, y: 6}
+  - position: {x: 1, y: 2.5}
     enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
-  - position: {x: -1.5, y: 3.5}
+  - position: {x: 1.5, y: 3}
     enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
-  - position: {x: -0.5, y: 5.5}
+  - position: {x: 0, y: 1.5}
+    enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
+  - position: {x: -1.5, y: 3}
+    enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
+  - position: {x: -1.5, y: 1}
+    enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
+  - position: {x: -1, y: 2.5}
     enemy: {fileID: 11400000, guid: 577d758e2a35c1b49bd3bff796af1436, type: 2}
   minStage: 2
   maxStage: 3
