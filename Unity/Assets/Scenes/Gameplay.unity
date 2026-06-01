@@ -2199,11 +2199,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fcc8a399fce5e64785c8b4122a766e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stage: 3
+  stage: 1
   score: 0
   totalScore: 0
   difficulty: 10
-  timePerStage: 40
+  timePerStage: 30
   gameEnded: 0
   increaseDifficultyScore: 200
   spawnPoints:
@@ -2219,7 +2219,11 @@ MonoBehaviour:
   formationsAvailable:
   - {fileID: 11400000, guid: 81814f63b66c0904c8293f3a83809c02, type: 2}
   - {fileID: 11400000, guid: e1aa5588660276340b2393e24a030447, type: 2}
+  - {fileID: 11400000, guid: d32bdf76bd969db46bd5abb392229d40, type: 2}
   - {fileID: 11400000, guid: c8cea543cb7e61547b696b1253668e27, type: 2}
+  - {fileID: 11400000, guid: 93990133af8d87c478eb7bdb6d51c6dd, type: 2}
+  - {fileID: 11400000, guid: 09a67013bd60f0d47a059caebd260887, type: 2}
+  - {fileID: 11400000, guid: 385732e5a81083948b7faa8eb8540947, type: 2}
   - {fileID: 11400000, guid: 9e445756c7fab5546a2e363617f7aedb, type: 2}
   enemyPrefab: {fileID: 1315613627137722576, guid: 30fc8d79fcbeadc47b79b4dd5fdd2aa3, type: 3}
   bossPrefab: {fileID: 2597252042493804294, guid: 1325753301d740a419ad9d0cf483da2e, type: 3}

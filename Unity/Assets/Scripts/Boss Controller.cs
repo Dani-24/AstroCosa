@@ -137,7 +137,7 @@ public class BossController : Character
                     wanderBulletsCont -= Time.deltaTime;
                 else
                 {
-                    wanderBulletsCont = timeUntilNextWanderBullet + UnityEngine.Random.Range(-2, 1);
+                    wanderBulletsCont = (timeUntilNextWanderBullet + UnityEngine.Random.Range(-2, 1)) / (1 + GameManagerScript.Instance.difficulty * 0.03f);
                     GameObject bullet = Instantiate(bulletPrefab, transform);
                     bullet.GetComponent<Bullet>().speed = -bulletSpeed;
                     bullet.transform.parent = null;
@@ -299,14 +299,14 @@ public class BossController : Character
         for (int i = 0; i < 3 + 0.01f * GameManagerScript.Instance.difficulty; i++)
         {
             Vector3 playerPos = Vector3.zero;
-            
+
             if (GameManagerScript.Instance.playerInstance != null)
                 playerPos = GameManagerScript.Instance.playerInstance.transform.position;
 
             for (int j = 0; j < 20 + 0.1f * GameManagerScript.Instance.difficulty; j++)
             {
                 Vector2 dir = (playerPos - transform.position).normalized;
-                float spread = UnityEngine.Random.Range(-7.25f, 7.25f);
+                float spread = UnityEngine.Random.Range(-7.75f, 7.75f);
 
                 dir = Quaternion.Euler(0f, 0f, spread) * dir;
 
@@ -314,9 +314,9 @@ public class BossController : Character
                 newBullet.GetComponent<Bullet>().speed = -bulletSpeed;
                 newBullet.transform.parent = null;
                 newBullet.layer = 6;
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForSeconds(0.04f);
             }
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.7f);
         }
         ResetPosition(2);
         StartCoroutine(EnemySummoning());
@@ -331,17 +331,17 @@ public class BossController : Character
 
         yield return new WaitForSeconds(2f);
 
-        transform.DOMove(new Vector3(transform.position.x, -6f, transform.position.z), 4f)
+        transform.DOMove(new Vector3(transform.position.x, -6f, transform.position.z), 2.5f)
             .SetEase(Ease.OutQuad);
 
-        yield return new WaitForSeconds(4.1f);
+        yield return new WaitForSeconds(2.6f);
 
-        transform.DOMove(new Vector3(transform.position.x, 3, transform.position.z), 4f)
+        transform.DOMove(new Vector3(transform.position.x, 3, transform.position.z), 2.5f)
             .SetEase(Ease.OutQuad);
 
-        yield return new WaitForSeconds(4.1f);
+        yield return new WaitForSeconds(2.6f);
 
-        ResetPosition(0.3f);
+        ResetPosition(0.25f);
         StartCoroutine(EnemySummoning());
     }
 
@@ -385,7 +385,7 @@ public class BossController : Character
 
         yield return new WaitForSeconds(2);
 
-        ResetPosition(4);
+        ResetPosition(3);
         StartCoroutine(EnemySummoning());
     }
 
@@ -408,7 +408,7 @@ public class BossController : Character
         if (isAbsorving)
         {
             absorved++;
-            currentHP+=2;
+            currentHP += 2;
             slider_hp.value = currentHP;
 
             audioSource.pitch = UnityEngine.Random.Range(1f - pitchVariation, 1f + pitchVariation);
@@ -449,7 +449,7 @@ public class BossController : Character
 
         Destroy(ringToDestroy);
 
-        for(int i = 0; i < detonationPositions.Length; i++)
+        for (int i = 0; i < detonationPositions.Length; i++)
         {
             GameObject explo = Instantiate(explosionPrefab, detonationPositions[i]);
             explo.transform.parent = null;
