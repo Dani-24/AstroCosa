@@ -1,12 +1,16 @@
 # Tercer Projecte
 
-## Joc
+This project objective was running a game from a react native frontend. That react native frontend would be an intermediary between the server (a FastApi + GraphQL) and the Unity Game.
+
+At the current state, the backend is fully operable (Works via Firebase) and the Game is playable, but due to personal limitations, the frontend has been simplified to the bare minimum.
+
+## Game
 
 Controls: 
-* Tecles A/D o fletxa esquerra/dreta pel moviment
-* Click Esquerra per disparar
+* A/D Keys or <-/-> arrows to move the spaceship
+* Left Click to shoot
 
-## User de firebase (Requerit al login del frontend):
+## Firebase User (Required at frontend login):
 
 info@mail.com
 
@@ -14,21 +18,21 @@ info@mail.com
 
 ## Frontend
 
-El frontend es troba al directori /Frontend
+Frontend is located at /Frontend
 
-amb el directori obert des d'un IDE, executar "npm install" per instal·lar les dependecies.
+once at the frontend directory, run "npm install" to install the node dependencies.
 
-per accedir al web executar "npm run web" al terminal. (Per carregar tant el joc com les consultes a l'API cal executar el backend previament)
+to access the website, run "npm run web" from the terminal. (Having the backend running is required for the game and the requests to work)
 
 ## Backend
 
-El Backend es troba a /PinguAPI
+Backend is located at /PinguAPI
 
-cal crear per terminal un virtual environment de python dins el directori del backend i instal·lar el requirements.txt mitjançant pip.
+a python virtual environment inside the backend directory with the requirements.txt installed via pip is required.
 
-Una vegada iniciat el virtual environment, arrencar el servidor executant el main.py
+Once the virtual environment is started, run the server by running main.py
 
-## Consultes GraphQL
+## GraphQL Queries & Mutations
 
 ### Perfil Jugador
 ```
