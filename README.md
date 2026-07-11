@@ -2,7 +2,7 @@
 
 This project objective was running a game from a react native frontend. That react native frontend would be an intermediary between the server (a FastApi + GraphQL) and the Unity Game.
 
-At the current state, the backend is fully operable (Works via Firebase) and the Game is playable, but due to personal limitations, the frontend has been simplified to the bare minimum.
+At the current state, the backend is fully operable (Works via Firebase) and the Game is playable, but the frontend is still in WIP at the bare minimum.
 
 ## Game
 
